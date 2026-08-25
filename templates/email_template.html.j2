@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progresso Semanal – Canal Educação</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #edf4ee;
+      font-family: 'Nunito Sans', Arial, sans-serif;
+      color: #1a2e1c;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .email-wrapper { background-color: #edf4ee; padding: 36px 16px 40px; }
+
+    .email-container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(15,75,42,0.12);
+    }
+
+    /* ══════════ HEADER ══════════ */
+    .header {
+      background: linear-gradient(135deg, #0a3d1f 0%, #145c2e 50%, #1a7a3c 100%);
+      padding: 40px 44px 46px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute; bottom: -1px; left: 0;
+      width: 100%; height: 28px;
+      background: #ffffff;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+
+    .header-logo-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 50px;
+      padding: 8px 20px 8px 10px;
+      margin-bottom: 22px;
+    }
+
+    .logo-circle {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .header-brand {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 15px; font-weight: 900;
+      color: #fff; letter-spacing: 0.2px;
+    }
+
+    .header-brand span { color: #86efac; }
+
+    .header-title {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 28px; font-weight: 900;
+      color: #fff; line-height: 1.2; margin-bottom: 12px;
+    }
+
+    .header-period {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.16);
+      border-radius: 8px; padding: 6px 16px;
+      font-size: 13px; font-weight: 700;
+      color: rgba(255,255,255,0.92); letter-spacing: 0.4px;
+    }
+
+    /* ══════════ BODY ══════════ */
+    .body { padding: 16px 44px 36px; }
+
+    /* Greeting */
+    .greeting-wrap {
+      padding: 22px 0 20px;
+      border-bottom: 1.5px solid #e4ede5;
+      margin-bottom: 30px;
+    }
+
+    .greeting-hi {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 19px; font-weight: 800; color: #0a3d1f; margin-bottom: 8px;
+    }
+
+    .greeting-body { font-size: 14.5px; color: #475569; line-height: 1.75; }
+    .greeting-body strong { color: #0a3d1f; font-weight: 700; }
+
+    /* Highlight boxes */
+    .highlight-box {
+      display: block; margin-top: 11px;
+      border-left: 4px solid #16a34a;
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      font-size: 13.5px; font-weight: 600; color: #14532d; line-height: 1.6;
+    }
+
+    .hb-green { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #16a34a; }
+    .hb-teal  { background: linear-gradient(135deg, #f0fdfa, #ccfbf1); border-color: #0d9488; }
+
+    /* Summary pills (auto-generated counts) */
+    .summary-row { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .summary-pill {
+      display: inline-block;
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 12px; font-weight: 800;
+      padding: 7px 14px; border-radius: 20px;
+    }
+    .summary-done    { background: #dcfce7; color: #14532d; }
+    .summary-pending { background: #ede9fe; color: #5b21b6; }
+    .summary-other   { background: #f1f5f9; color: #475569; }
+
+    /* Section label */
+    .sec-label { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+
+    .sec-bar {
+      width: 4px; height: 22px;
+      background: linear-gradient(180deg, #16a34a, #4ade80);
+      border-radius: 4px; flex-shrink: 0;
+    }
+
+    .sec-text {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 11.5px; font-weight: 900;
+      color: #15803d; text-transform: uppercase; letter-spacing: 1.3px;
+    }
+
+    /* ══════════ INDICATORS ══════════ */
+    .ind-block { margin-bottom: 34px; }
+
+    /* Full indicator table */
+    .ind-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid #d1fae5;
+    }
+
+    .ind-tbl-header-row td {
+      padding: 0;
+      background: #ffffff;
+    }
+
+    /* Column header cells */
+    .col-th-label {
+      background: #0a3d1f;
+      padding: 14px 18px;
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 11px; font-weight: 900;
+      color: #86efac;
+      text-transform: uppercase; letter-spacing: 1px;
+      width: 26%;
+    }
+
+    .col-th-students {
+      background: linear-gradient(135deg, #14532d, #16a34a);
+      padding: 14px 12px;
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 10.5px; font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      text-align: center; width: 37%;
+    }
+
+    .col-th-access {
+      background: linear-gradient(135deg, #0e4b7a, #1d6fa5);
+      padding: 14px 12px;
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 10.5px; font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      text-align: center; width: 37%;
+    }
+
+    /* Data rows */
+    .ind-tbl tbody tr:nth-child(odd)  td { background: #ffffff; }
+    .ind-tbl tbody tr:nth-child(even) td { background: #f8fdf9; }
+
+    .ind-tbl tbody td {
+      border-bottom: 1px solid #e9f7ec;
+      padding: 14px 12px;
+      vertical-align: middle;
+    }
+
+    .ind-tbl tbody tr:last-child td { border-bottom: none; }
+
+    /* Series label cell */
+    .serie-cell {
+      padding: 14px 18px !important;
+      border-right: 1.5px solid #d1fae5;
+    }
+
+    .serie-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    .serie-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    .serie-name {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 13px; font-weight: 800; color: #1a2e1c;
+    }
+
+    /* Value pills */
+    .pill {
+      display: inline-block; min-width: 56px;
+      padding: 6px 14px; border-radius: 30px;
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 18px; font-weight: 900;
+      letter-spacing: -0.3px; text-align: center;
+    }
+
+    .pill-green { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #14532d; }
+    .pill-blue  { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1e3a8a; }
+
+    /* ══════════ ACTIONS TABLE ══════════ */
+    .action-intro { font-size: 14.5px; color: #475569; line-height: 1.75; margin-bottom: 18px; }
+    .action-intro strong { color: #0a3d1f; font-weight: 700; }
+
+    .tbl-wrap {
+      border-radius: 14px; overflow: hidden;
+      border: 1.5px solid #e2e8f0; margin-bottom: 34px;
+    }
+
+    .act-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+    .act-tbl thead td {
+      background: linear-gradient(135deg, #0a3d1f, #15803d);
+      padding: 13px 13px;
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 10px; font-weight: 900;
+      color: #fff; text-transform: uppercase; letter-spacing: 0.9px;
+      vertical-align: middle;
+    }
+
+    .act-tbl tbody tr:nth-child(odd)  td { background: #ffffff; }
+    .act-tbl tbody tr:nth-child(even) td { background: #f8fdf9; }
+
+    .act-tbl tbody td {
+      padding: 11px 13px;
+      border-bottom: 1px solid #f0f7f1;
+      color: #374151; line-height: 1.55; vertical-align: top;
+      font-size: 13px;
+    }
+
+    .act-tbl tbody tr:last-child td { border-bottom: none; }
+
+    .tag {
+      display: inline-block;
+      font-size: 10.5px; font-weight: 800;
+      padding: 3px 11px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;
+    }
+
+    .tag-curso     { background: #dcfce7; color: #14532d; }
+    .tag-plataforma{ background: #dbeafe; color: #1e3a8a; }
+    .tag-redacao   { background: #fae8ff; color: #6b21a8; }
+    .tag-quiz      { background: #fef9c3; color: #854d0e; }
+
+    .dt {
+      display: inline-block;
+      background: #f1f5f9; color: #64748b;
+      font-size: 11px; font-weight: 700;
+      padding: 3px 9px; border-radius: 6px; white-space: nowrap;
+    }
+
+    .status {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 6px; white-space: nowrap;
+    }
+
+    .status-done    { background: #dcfce7; color: #15803d; }
+    .status-ongoing { background: #fef3c7; color: #92400e; }
+    .status-pending { background: #ede9fe; color: #6d28d9; }
+    .status-default { background: #e5e7eb; color: #374151; }
+
+    /* ══════════ TUTORIALS BOX ══════════ */
+    .tutorials-box {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 1.5px solid #bbf7d0;
+      border-radius: 16px; padding: 22px 24px; margin-bottom: 16px;
+    }
+
+    .tut-title {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 13.5px; font-weight: 900; color: #14532d;
+      margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+    }
+
+    .tut-subtitle {
+      font-size: 13px; color: #374151; margin-bottom: 16px; line-height: 1.5;
+    }
+
+    .tut-grid {
+      width: 100%; border-collapse: separate; border-spacing: 7px;
+      margin: 0 -7px; width: calc(100% + 14px);
+    }
+
+    .tut-item {
+      width: 50%;
+      background: #ffffff;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      padding: 11px 13px;
+      vertical-align: top;
+    }
+
+    .tut-item-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #15803d, #22c55e);
+      border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 7px;
+      vertical-align: middle; margin-right: 6px;
+    }
+
+    .tut-item-label {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 11.5px; font-weight: 800; color: #14532d;
+      display: block; margin-bottom: 4px; line-height: 1.35;
+    }
+
+    .tut-link {
+      font-size: 11.5px; color: #15803d; font-weight: 600;
+      text-decoration: none; word-break: break-all; line-height: 1.4;
+    }
+
+    .tut-attach {
+      font-size: 11.5px; color: #4b5563; font-weight: 600;
+      line-height: 1.4; font-style: italic;
+    }
+
+    /* ══════════ SUPPORT BOX ══════════ */
+    .support-box {
+      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+      border: 1.5px solid #bae6fd;
+      border-radius: 16px; padding: 22px 24px; margin-bottom: 28px;
+    }
+
+    .sup-title {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 13.5px; font-weight: 900; color: #0c4a6e;
+      margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+
+    .sup-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+    .sup-row:last-child { margin-bottom: 0; }
+
+    .s-ico {
+      width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .s-ico-form  { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+    .s-ico-whats { background: linear-gradient(135deg, #22c55e, #16a34a); }
+
+    .s-label {
+      font-size: 10.5px; font-weight: 800; color: #0c4a6e;
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px;
+    }
+
+    .s-val  { font-size: 13px; color: #374151; }
+    .s-link { color: #0369a1; text-decoration: none; font-weight: 600; word-break: break-all; }
+
+    /* ══════════ CLOSING ══════════ */
+    .closing {
+      padding-top: 22px;
+      border-top: 1.5px solid #e4ede5;
+      text-align: center;
+    }
+
+    .closing-text { font-size: 14px; color: #64748b; line-height: 1.8; margin-bottom: 14px; }
+
+    .closing-sign {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 15.5px; font-weight: 900; color: #15803d; line-height: 1.5;
+    }
+
+    /* ══════════ FOOTER ══════════ */
+    .footer { background: #071a0c; padding: 26px 44px; text-align: center; }
+
+    .footer-brand {
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 14px; font-weight: 900; color: #4ade80; margin-bottom: 5px;
+    }
+
+    .footer-sub { font-size: 11.5px; color: #4b5563; }
+
+    /* ══════════ RESPONSIVE ══════════ */
+    @media only screen and (max-width: 500px) {
+      .body { padding: 10px 20px 28px; }
+      .header { padding: 28px 20px 30px; }
+      .header-title { font-size: 21px; }
+      .footer { padding: 20px 20px; }
+      .pill { font-size: 15px; min-width: 44px; padding: 5px 10px; }
+    }
+  </style>
+</head>
+<body>
+<div class="email-wrapper">
+<div class="email-container">
+
+<!-- ══════════ HEADER ══════════ -->
+<div class="header">
+  <div class="header-logo-pill">
+    <div class="logo-circle">
+      <!-- TV/play icon -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z" fill="#fff"/>
+        <path d="M9.5 8.5l6 3.5-6 3.5V8.5z" fill="rgba(255,255,255,0.65)"/>
+      </svg>
+    </div>
+    <div class="header-brand">Canal <span>Educação</span></div>
+  </div>
+  <div class="header-title">📊 Progresso Semanal da Plataforma</div>
+  <div class="header-period">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" fill="rgba(255,255,255,0.85)"/></svg>
+    {{ period_start }} &nbsp;–&nbsp; {{ period_end }}
+  </div>
+</div>
+
+<!-- ══════════ BODY ══════════ -->
+<div class="body">
+
+  <!-- GREETING -->
+  <div class="greeting-wrap">
+    <div class="greeting-hi">Olá! 👋</div>
+    <div class="greeting-body">
+      Confira as novidades dessa semana na plataforma <strong>Canal Educação</strong>!
+      <span class="highlight-box hb-green">
+        {{ highlight1|safe }}
+      </span>
+      <span class="highlight-box hb-teal" style="margin-top:8px;">
+        {{ highlight2|safe }}
+      </span>
+    </div>
+    <div class="summary-row">
+      <div class="summary-pill summary-done">✅ {{ total_concluido }} concluída{{ '' if total_concluido == 1 else 's' }}</div>
+      <div class="summary-pill summary-pending">🗓️ {{ total_agendado }} agendada{{ '' if total_agendado == 1 else 's' }}</div>
+      {% if total_outros %}<div class="summary-pill summary-other">⏳ {{ total_outros }} em outro status</div>{% endif %}
+    </div>
+  </div>
+
+  <!-- ══ INDICATORS ══ -->
+  <div class="ind-block">
+    <div class="sec-label">
+      <div class="sec-bar"></div>
+      <div class="sec-text">📈 KPIs de Aderência — Indicadores da Semana</div>
+    </div>
+
+    <!--
+      TABELA DE INDICADORES POR SEGMENTO
+      Gerada automaticamente a partir da aba "KPIs" da planilha
+      (Segmento | Total de Estudantes | Acessos na Última Semana).
+    -->
+    <table class="ind-tbl" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <!-- Cabeçalho das colunas -->
+      <thead>
+        <tr>
+          <td class="col-th-label">Série</td>
+          <td class="col-th-students" style="text-align:center;">
+            <div style="margin-bottom:4px;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="white"/>
+              </svg>
+            </div>
+            👥 Total de Estudantes
+          </td>
+          <td class="col-th-access" style="text-align:center;">
+            <div style="margin-bottom:4px;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;">
+                <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z" fill="white"/>
+              </svg>
+            </div>
+            📅 Acessos na Última Semana
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for kpi in kpis %}
+        <tr>
+          <td class="serie-cell" style="background:{{ kpi.bg }}; border-right:1.5px solid #d1fae5; padding:15px 18px; border-bottom:{{ kpi.border }};">
+            <span class="serie-badge">
+              <span class="serie-dot" style="background:{{ kpi.color }};"></span>
+              <span class="serie-name">{{ kpi.segmento }}</span>
+            </span>
+          </td>
+          <td style="background:{{ kpi.bg }}; text-align:center; border-bottom:{{ kpi.border }}; padding:14px 12px;">
+            <span class="pill pill-green">{{ kpi.estudantes }}</span>
+          </td>
+          <td style="background:{{ kpi.bg }}; text-align:center; border-bottom:{{ kpi.border }}; padding:14px 12px;">
+            <span class="pill pill-blue">{{ kpi.acessos }}</span>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="3" style="background:#ffffff; text-align:center; padding:20px; color:#64748b; font-size:12.5px; font-style:italic;">
+            Nenhum dado de KPI cadastrado nesta semana (preencha a aba "KPIs" na planilha).
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ ACTIONS TABLE ══ -->
+  <div class="sec-label">
+    <div class="sec-bar"></div>
+    <div class="sec-text">✅ Ações Realizadas</div>
+  </div>
+
+  <p class="action-intro">
+    E não para por aí — confira abaixo <strong>todas as ações que foram realizadas</strong> nesta semana:
+  </p>
+
+  <div class="tbl-wrap">
+    <table class="act-tbl" cellspacing="0" cellpadding="0" border="0" width="100%">
+      <thead>
+        <tr>
+          <td width="16%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">Seção</td>
+          <td width="22%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">Componente</td>
+          <td width="32%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">O que foi feito</td>
+          <td width="12%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;text-align:center;">Data</td>
+          <td width="18%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;text-align:center;">Status</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for group in groups %}
+        {% for row in group.rows %}
+        <tr>
+          {% if loop.index0 == 0 %}
+          <td rowspan="{{ group.rows|length }}" style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};vertical-align:top;font-family:'Nunito',Arial,sans-serif;font-size:12.5px;font-weight:800;color:#1a2e1c;">
+            {{ group.name }}
+          </td>
+          {% endif %}
+          <td style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};vertical-align:top;">
+            <span class="tag {{ row.tag_class }}"{{ row.tag_style }}>{{ row.componente }}</span>
+          </td>
+          <td style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};color:#374151;vertical-align:top;">{{ row.feito }}</td>
+          <td style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};text-align:center;vertical-align:top;"><span class="dt">{{ row.data_disp }}</span></td>
+          <td style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};text-align:center;vertical-align:top;"><span class="status {{ row.status_class }}">{{ row.status }}</span></td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ TUTORIALS ══ -->
+  <div class="sec-label">
+    <div class="sec-bar"></div>
+    <div class="sec-text">📚 Tutoriais de Apoio</div>
+  </div>
+
+  <div class="tutorials-box">
+    <div class="tut-title">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h2v6zm0-8h-2V7h2v4z" fill="#14532d"/></svg>
+      Dúvidas no Canal Educação?
+    </div>
+    <p class="tut-subtitle">Divulgue esses tutoriais para facilitar o acesso e a utilização da plataforma.</p>
+
+    <table class="tut-grid" cellspacing="0" cellpadding="0" border="0" width="100%"
+           style="border-collapse:separate; border-spacing:0 7px;">
+      <tr>
+        <!-- Tutorial 1: Guia de acesso (PDF) -->
+        <td class="tut-item" width="100%" valign="top"
+            style="background:#ffffff; border:1px solid #bbf7d0; border-radius:10px; padding:12px 13px; vertical-align:top;">
+          <span class="tut-item-label">🔑 Como descobrir seu e-mail institucional e acessar a plataforma</span>
+          <a href="https://plataforma.canaleducacao.tv/login" class="tut-link">
+            plataforma.canaleducacao.tv/login
+          </a>
+          <div class="tut-attach">
+            📎 <a href="https://drive.google.com/file/d/1gkdoitkE4E2OBNWT_gFc4uCKzndYftsM/view?usp=sharing" class="tut-link" style="font-style:normal;">Guia completo em PDF</a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <!-- Tutorial 2: Vídeo redefinir senha -->
+        <td class="tut-item" width="100%" valign="top"
+            style="background:#ffffff; border:1px solid #bbf7d0; border-radius:10px; padding:12px 13px; vertical-align:top;">
+          <span class="tut-item-label">🎥 Esqueceu sua senha? Veja o vídeo tutorial</span>
+          <a href="https://drive.google.com/file/d/1wCBo42WpRqkzCc-eTpFdQUSGDxs1GZwr/view?usp=sharing" class="tut-link">
+            Vídeo: redefinição de senha no Portal iSEDUC
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <!-- Tutorial 3: Gerir Google Sala de Aula -->
+        <td class="tut-item" width="100%" valign="top"
+            style="background:#ffffff; border:1px solid #bbf7d0; border-radius:10px; padding:12px 13px; vertical-align:top;">
+          <span class="tut-item-label">🧑‍🏫 Gerir Google Sala de Aula</span>
+          <a href="https://manuais.seduc.pi.gov.br/ap-07-gerir-google-sala-de-aula/" class="tut-link">
+            manuais.seduc.pi.gov.br → Gerir Google Sala de Aula
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ══ SUPPORT ══ -->
+  <div class="support-box">
+    <div class="sup-row">
+      <div class="s-ico s-ico-whats">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+          <path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.3-.345.45-.525.149-.18.199-.3.3-.5.099-.2.05-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345z" fill="white"/>
+          <path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.45zm-8.475 18.3h-.004a9.927 9.927 0 01-5.032-1.378l-.36-.214-3.744.975.998-3.63-.239-.375a9.795 9.795 0 01-1.516-5.26c.003-5.45 4.449-9.877 9.921-9.877 2.65.003 5.138 1.03 7.008 2.897 1.87 1.868 2.898 4.348 2.895 6.987-.003 5.452-4.45 9.878-9.927 9.878z" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div class="s-label">WhatsApp</div>
+        <div class="s-val" style="font-weight:700; color:#1a2e1c;">+55 86 99493-8467</div>
+        <div><span style="color:rgb(0, 2, 3); font-weight:600"><a href="https://api.whatsapp.com/send/?phone=%2B5586994938467&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" id="OWAfc50373f-18f9-05b7-85ed-06ea24c70709" class="x_OWAAutoLink" title="https://api.whatsapp.com/send/?phone=%2B5586994938467&amp;text&amp;type=phone_number&amp;app_absent=0" data-linkindex="8">Fale com o nosso suporte!</a></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <p class="closing-text">
+      Fique de olho nas próximas atualizações e continue explorando tudo o que a plataforma tem a oferecer.<br>
+      Qualquer dúvida ou sugestão, estamos à disposição!
+    </p>
+    <div class="closing-sign">Atenciosamente,<br>Equipe Canal Educação</div>
+  </div>
+
+</div><!-- /body -->
+
+<!-- ══════════ FOOTER ══════════ -->
+<div class="footer">
+  <div class="footer-brand">Canal Educação</div>
+  <div class="footer-sub">Plataforma de educação e capacitação profissional</div>
+</div>
+
+</div><!-- /email-container -->
+</div><!-- /email-wrapper -->
+</body>
+</html>

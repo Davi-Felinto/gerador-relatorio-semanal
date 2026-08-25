@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.streamlit/secrets.toml
+
+# Planilhas de teste não devem ir pro repo (dados sensíveis)
+*.xlsx
+!templates/*.xlsx
