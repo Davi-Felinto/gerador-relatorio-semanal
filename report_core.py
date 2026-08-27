@@ -285,11 +285,25 @@ def default_pending_highlight(ctx):
     return "Nenhuma ação agendada para os próximos dias."
 
 
+def format_period_value(value):
+    """Formata um valor vindo da célula 'Período início/fim' da aba Config.
+    A célula pode conter um objeto de data (se a planilha formatou como
+    data) ou um texto solto - nos dois casos, queremos sempre dd/mm/aaaa."""
+    if isinstance(value, dt.datetime):
+        return value.date().strftime("%d/%m/%Y")
+    if isinstance(value, dt.date):
+        return value.strftime("%d/%m/%Y")
+    parsed = parse_date(value)
+    if parsed:
+        return parsed.strftime("%d/%m/%Y")
+    return str(value).strip()
+
+
 def resolve_period(config, ctx):
     start = config.get("periodoinicio")
     end = config.get("periodofim")
     if start and end:
-        return str(start), str(end)
+        return format_period_value(start), format_period_value(end)
     dates = ctx["dates_concluido"] or ctx["dates_all"]
     if dates:
         return min(dates).strftime("%d/%m/%Y"), max(dates).strftime("%d/%m/%Y")
