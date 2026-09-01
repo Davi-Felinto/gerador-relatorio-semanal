@@ -3,8 +3,8 @@ __pycache__/
 .venv/
 venv/
 .streamlit/secrets.toml
-.templates/
 
 # Planilhas de teste não devem ir pro repo (dados sensíveis)
 *.xlsx
 !templates/*.xlsx
+!templates/*.j2
