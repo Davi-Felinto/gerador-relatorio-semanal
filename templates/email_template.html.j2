@@ -537,8 +537,7 @@
       <thead>
         <tr>
           <td width="16%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">Seção</td>
-          <td width="22%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">Componente</td>
-          <td width="32%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">O que foi feito</td>
+          <td width="54%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">O que foi feito</td>
           <td width="12%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;text-align:center;">Data</td>
           <td width="18%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;text-align:center;">Status</td>
         </tr>
@@ -552,9 +551,6 @@
             {{ group.name }}
           </td>
           {% endif %}
-          <td style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};vertical-align:top;">
-            <span class="tag {{ row.tag_class }}"{{ row.tag_style }}>{{ row.componente }}</span>
-          </td>
           <td style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};color:#374151;vertical-align:top;">{{ row.feito }}</td>
           <td style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};text-align:center;vertical-align:top;"><span class="dt">{{ row.data_disp }}</span></td>
           <td style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};text-align:center;vertical-align:top;"><span class="status {{ row.status_class }}">{{ row.status }}</span></td>

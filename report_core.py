@@ -45,14 +45,6 @@ STATUS_MAP = {
     "em andamento": ("status-ongoing", "Em andamento"),
 }
 
-TAG_RULES = [
-    (["cadastro"], "tag-plataforma", None),
-    (["inclusao de conteudo", "inclusão de conteúdo"], "tag-plataforma", None),
-    (["redacao", "redação", "enem"], "tag-redacao", None),
-    (["quiz"], "tag-quiz", None),
-]
-DEFAULT_TAG_STYLE = ' style="background:#d1fae5;color:#065f46;font-size:10px;"'
-
 
 def strip_accents(text: str) -> str:
     return "".join(
@@ -70,15 +62,6 @@ def list_data_sheets(xlsx_path_or_buffer):
     ]
     wb.close()
     return names
-
-
-def tag_for_componente(componente: str):
-    normalized = strip_accents(componente).lower()
-    for keywords, css_class, _ in TAG_RULES:
-        for kw in keywords:
-            if strip_accents(kw).lower() in normalized:
-                return css_class, None
-    return "tag", DEFAULT_TAG_STYLE
 
 
 def status_for(value: str):
@@ -109,11 +92,11 @@ def parse_date(value):
 def find_header_row(ws):
     for row in ws.iter_rows(min_row=1, max_row=min(ws.max_row, 10)):
         for cell in row:
-            if cell.value and "componente curricular" in strip_accents(str(cell.value)).lower():
+            if cell.value and "o que foi feito" in strip_accents(str(cell.value)).lower():
                 return cell.row
     raise ValueError(
         "Não encontrei a linha de cabeçalho (esperava uma célula com "
-        "'Componente curricular') nesta aba."
+        "'O que foi feito') nesta aba."
     )
 
 
@@ -124,13 +107,12 @@ def load_rows(xlsx_path_or_buffer, sheet_name: str | None):
 
     raw_rows = []
     for row in ws.iter_rows(min_row=header_row + 1, values_only=True):
-        ambiente, componente, feito, data, status = (list(row) + [None] * 5)[:5]
-        if not any([ambiente, componente, feito, data, status]):
+        ambiente, feito, data, status = (list(row) + [None] * 4)[:4]
+        if not any([ambiente, feito, data, status]):
             continue
         raw_rows.append(
             {
                 "ambiente": str(ambiente).strip() if ambiente else None,
-                "componente": str(componente).strip() if componente else "",
                 "feito": str(feito).strip() if feito else "",
                 "data": parse_date(data),
                 "status_raw": status,
@@ -171,7 +153,6 @@ def build_context(groups):
             bg = BG_ODD if global_index % 2 == 0 else BG_EVEN
             border = "none" if is_last else "1px solid #f0f7f1"
 
-            tag_class, tag_style = tag_for_componente(r["componente"])
             status_class, status_label = status_for(r["status_raw"])
 
             if status_label == "Concluído":
@@ -188,13 +169,10 @@ def build_context(groups):
 
             out_rows.append(
                 {
-                    "componente": r["componente"],
                     "feito": r["feito"],
                     "data_disp": r["data"].strftime("%d/%m") if r["data"] else "-",
                     "status": status_label,
                     "status_class": status_class,
-                    "tag_class": tag_class,
-                    "tag_style": tag_style or "",
                     "bg": bg,
                     "border": border,
                 }
