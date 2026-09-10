@@ -92,11 +92,11 @@ def parse_date(value):
 def find_header_row(ws):
     for row in ws.iter_rows(min_row=1, max_row=min(ws.max_row, 10)):
         for cell in row:
-            if cell.value and "o que foi feito" in strip_accents(str(cell.value)).lower():
+            if cell.value and "feito" in strip_accents(str(cell.value)).lower():
                 return cell.row
     raise ValueError(
-        "Não encontrei a linha de cabeçalho (esperava uma célula com "
-        "'O que foi feito') nesta aba."
+        "Não encontrei a linha de cabeçalho (esperava uma célula "
+        "contendo a palavra 'feito') nesta aba."
     )
 
 
