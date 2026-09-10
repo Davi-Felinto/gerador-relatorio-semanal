@@ -536,8 +536,8 @@
     <table class="act-tbl" cellspacing="0" cellpadding="0" border="0" width="100%">
       <thead>
         <tr>
-          <td width="16%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">Seção</td>
-          <td width="54%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">O que foi feito</td>
+          <td width="20%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">Seção</td>
+          <td width="50%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;">O que foi feito</td>
           <td width="12%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;text-align:center;">Data</td>
           <td width="18%" style="background:linear-gradient(135deg,#0a3d1f,#15803d);padding:13px 13px;font-family:'Nunito',Arial,sans-serif;font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.9px;text-align:center;">Status</td>
         </tr>
@@ -547,7 +547,7 @@
         {% for row in group.rows %}
         <tr>
           {% if loop.index0 == 0 %}
-          <td rowspan="{{ group.rows|length }}" style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};vertical-align:top;font-family:'Nunito',Arial,sans-serif;font-size:12.5px;font-weight:800;color:#1a2e1c;">
+          <td rowspan="{{ group.rows|length }}" style="background:{{ row.bg }};padding:12px 13px;border-bottom:{{ row.border }};vertical-align:top;font-family:'Nunito',Arial,sans-serif;font-size:12.5px;font-weight:800;color:#1a2e1c;word-break:normal;">
             {{ group.name }}
           </td>
           {% endif %}

@@ -86,7 +86,12 @@ def parse_date(value):
             return dt.datetime.strptime(text, fmt).date()
         except ValueError:
             continue
-    return None
+    # Rede de segurança: texto tipo "10/09", sem ano - assume o ano atual.
+    try:
+        parsed = dt.datetime.strptime(text, "%d/%m")
+        return parsed.replace(year=dt.date.today().year).date()
+    except ValueError:
+        return None
 
 
 def find_header_row(ws):
